@@ -350,6 +350,7 @@ bool CollisionObject3D::_are_collision_shapes_visible() {
 
 void CollisionObject3D::_update_shape_data(uint32_t p_owner) {
 	if (_are_collision_shapes_visible()) {
+		print_line("update debug shaped!");
 		if (debug_shapes_to_update.is_empty()) {
 			callable_mp(this, &CollisionObject3D::_update_debug_shapes).call_deferred();
 		}
@@ -390,6 +391,7 @@ void CollisionObject3D::_update_debug_shapes() {
 						RS::get_singleton()->free_rid(s.debug_shape);
 						s.debug_shape = RID();
 						--debug_shapes_count;
+						print_line("Disabled just deleted :O");
 					}
 					continue;
 				}

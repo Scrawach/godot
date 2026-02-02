@@ -29,6 +29,8 @@
 /**************************************************************************/
 
 #include "rigid_body_3d.h"
+#include "collision_shape_3d.h"
+#include "collision_polygon_3d.h"
 
 void RigidBody3D::_body_enter_tree(ObjectID p_id) {
 	Object *obj = ObjectDB::get_instance(p_id);
@@ -156,6 +158,26 @@ void RigidBody3D::_sync_body_state(PhysicsDirectBodyState3D *p_state) {
 	if (sleeping != p_state->is_sleeping()) {
 		sleeping = p_state->is_sleeping();
 		emit_signal(SceneStringName(sleeping_state_changed));
+
+		if (!Engine::get_singleton()->is_editor_hint() && !get_tree()->is_debugging_collisions_hint()) {
+			return;
+		}
+
+		List<uint32_t> shape_owners;
+		get_shape_owners(&shape_owners);
+		for (uint32_t owner_id : shape_owners) {
+			Object *owner = shape_owner_get_owner(owner_id);
+
+			CollisionShape3D *shape = Object::cast_to<CollisionShape3D>(owner);
+			if (shape) {
+				shape->set_disabled(true);
+			}
+
+			CollisionPolygon3D *polygon = Object::cast_to<CollisionPolygon3D>(owner);
+			if (polygon) {
+				polygon->set_sleeping(sleeping);
+			}
+		}
 	}
 }
 

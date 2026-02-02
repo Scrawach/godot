@@ -47,6 +47,7 @@ protected:
 
 	Color debug_color;
 	bool debug_fill = true;
+	bool sleeping = false;
 
 	Color _get_default_debug_color() const;
 
@@ -88,6 +89,9 @@ public:
 
 	real_t get_margin() const;
 	void set_margin(real_t p_margin);
+
+	void set_sleeping(bool p_sleeping);
+	bool is_sleeping() const;
 
 	PackedStringArray get_configuration_warnings() const override;
 

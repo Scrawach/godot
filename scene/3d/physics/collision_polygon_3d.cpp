@@ -159,6 +159,14 @@ bool CollisionPolygon3D::is_disabled() const {
 	return disabled;
 }
 
+void CollisionPolygon3D::set_sleeping(bool p_sleeping) {
+	sleeping = p_sleeping;
+}
+
+bool CollisionPolygon3D::is_sleeping() const {
+	return sleeping;
+}
+
 Color CollisionPolygon3D::_get_default_debug_color() const {
 	const SceneTree *st = SceneTree::get_singleton();
 	return st ? st->get_debug_collisions_color() : Color(0.0, 0.0, 0.0, 0.0);

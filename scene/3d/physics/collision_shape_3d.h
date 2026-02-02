@@ -44,6 +44,7 @@ class CollisionShape3D : public Node3D {
 
 	Color debug_color;
 	bool debug_fill = true;
+	bool sleeping = false;
 
 	Color _get_default_debug_color() const;
 
@@ -83,6 +84,9 @@ public:
 
 	void set_debug_fill_enabled(bool p_enable);
 	bool get_debug_fill_enabled() const;
+
+	void set_sleeping(bool p_sleeping);
+	bool is_sleeping() const;
 
 	PackedStringArray get_configuration_warnings() const override;
 

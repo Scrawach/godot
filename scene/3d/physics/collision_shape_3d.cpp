@@ -233,6 +233,7 @@ Ref<Shape3D> CollisionShape3D::get_shape() const {
 }
 
 void CollisionShape3D::set_disabled(bool p_disabled) {
+	print_line(vformat("SET_DISABLED: %s", p_disabled));
 	disabled = p_disabled;
 	update_gizmos();
 	if (collision_object) {
@@ -242,6 +243,19 @@ void CollisionShape3D::set_disabled(bool p_disabled) {
 
 bool CollisionShape3D::is_disabled() const {
 	return disabled;
+}
+
+void CollisionShape3D::set_sleeping(bool p_sleeping) {
+	print_line(vformat("SET SLEEPING: %s", p_sleeping));
+	sleeping = p_sleeping;
+	update_gizmos();
+	if (collision_object) {
+		_update_in_shape_owner(true);
+	}
+}
+
+bool CollisionShape3D::is_sleeping() const {
+	return sleeping;
 }
 
 Color CollisionShape3D::_get_default_debug_color() const {
