@@ -4285,7 +4285,10 @@ void EditorInspector::update_tree() {
 
 				// Only process group label if this is not the group or subgroup.
 				if ((i == 0 && component == group) || (i == 1 && component == subgroup)) {
-					if (section_name_style == EditorPropertyNameProcessor::STYLE_LOCALIZED) {
+					if (p.name.begins_with("shader_parameter") && section_name_style != EditorPropertyNameProcessor::STYLE_RAW) {
+						label = EditorPropertyNameProcessor::get_singleton()->process_name(component.to_lower(), section_name_style);
+						tooltip = component;
+					} else if (section_name_style == EditorPropertyNameProcessor::STYLE_LOCALIZED) {
 						label = EditorPropertyNameProcessor::get_singleton()->translate_group_name(component);
 						tooltip = component;
 					} else {
@@ -4293,7 +4296,7 @@ void EditorInspector::update_tree() {
 						tooltip = EditorPropertyNameProcessor::get_singleton()->translate_group_name(component);
 					}
 				} else {
-					label = EditorPropertyNameProcessor::get_singleton()->process_name(component, section_name_style, p.name, doc_name);
+					label = EditorPropertyNameProcessor::get_singleton()->process_name(component.to_lower(), section_name_style, p.name, doc_name);
 					tooltip = EditorPropertyNameProcessor::get_singleton()->process_name(component, EditorPropertyNameProcessor::get_tooltip_style(section_name_style), p.name, doc_name);
 				}
 

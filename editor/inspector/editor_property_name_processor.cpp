@@ -329,6 +329,9 @@ EditorPropertyNameProcessor::EditorPropertyNameProcessor() {
 	capitalize_string_remaps["xy"] = "XY";
 	capitalize_string_remaps["xz"] = "XZ";
 	capitalize_string_remaps["yz"] = "YZ";
+	capitalize_string_remaps["yx"] = "YX";
+	capitalize_string_remaps["zx"] = "ZX";
+	capitalize_string_remaps["zy"] = "ZY";
 
 	// Articles, conjunctions, prepositions.
 	// The following initialization is parsed in https://github.com/godotengine/godot-editor-l10n/blob/main/scripts/common.py
